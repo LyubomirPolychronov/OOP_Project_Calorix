@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <memory>
 #include "UserProfile.h"
 class User
 {
@@ -13,6 +15,7 @@ protected:
 public:
 	 User(const std::string& username, const std::string& password, const UserProfile& prof);
 	 virtual ~User(){}
+	 virtual void registerUser(const std::string& username, const std::string& pass,int age, double weight, double height, const Gender& gender) = 0;
 	 virtual void login(const std::string& username, const std::string& password) = 0;
 	 virtual void logout() = 0;
 	 virtual void help() = 0;

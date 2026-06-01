@@ -1,12 +1,13 @@
 #pragma once
 #include "Food.h"
 #include "Date.h"
+#include <stdexcept>
 class FoodEntry
 {
 private:
 	int id;
 	static int nextId;
-	Food food;
+	const Food& food;
 	double quantityGrams;
 	Date date;
 public:

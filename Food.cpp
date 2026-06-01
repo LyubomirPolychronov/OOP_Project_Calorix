@@ -1,5 +1,4 @@
 #include "Food.h"
-#include "Exercise.h"
 
 int Food::nextId = 1;
 

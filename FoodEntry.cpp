@@ -6,7 +6,7 @@ FoodEntry::FoodEntry(const Food& food, double quantityInGrams, const Date& date)
 {
 	if (this->quantityGrams < 0)
 	{
-		//throw std::invalid_arhument("Quantity cannot be negative");
+		throw std::invalid_argument("Quantity cannot be negative");
 	}
 }
 

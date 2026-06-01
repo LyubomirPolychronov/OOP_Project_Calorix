@@ -1,5 +1,4 @@
 #include "User.h"
-#include "Food.h"
 
 int User::nextId = 1;
 

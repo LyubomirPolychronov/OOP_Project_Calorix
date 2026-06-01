@@ -1,5 +1,8 @@
 #pragma once
+#include <stdexcept>
+#include <memory>
 #include <string>
+#include <iostream>
 enum class Gender {
 	male,
 	female,

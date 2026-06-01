@@ -1,0 +1,25 @@
+# Временни папки на Visual Studio
+.vs/
+Debug/
+Release/
+x64/
+ARM/
+obj/
+
+# Специфични файлове, които се регенерират
+*.user
+*.suo
+*.db
+*.opendb
+*.sdf
+*.VC.db
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.log
+*.tlog
