@@ -37,4 +37,13 @@ double Food::getCarbs() const
 	return this->carbsPer100g;
 }
 
+void Food::setCalories(double newCals)
+{
+	if (newCals < 0)
+	{
+		throw std::invalid_argument("Calories should be a positive number");
+	}
+	caloriesPer100g = newCals;
+}
+
 

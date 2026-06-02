@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <stdexcept>
 class Food
 {
 private:
@@ -16,6 +17,7 @@ public:
 	double getCalories() const;
 	double getFats() const;
 	double getCarbs() const;
+	void setCalories(double newCals);
 };
 
    
