@@ -13,11 +13,11 @@ class FitnessGoal
 protected:
 	Date startDate;
 	Date deadline;
-	bool isAchieved;
+	mutable bool isAchieved;
 public:
 	FitnessGoal(const Date& start, const Date& end):startDate(start), deadline(end), isAchieved(false){}
 	virtual ~FitnessGoal() = default;
-	virtual bool isGoalAchieved(const UserProfile& profile) = 0;
+	virtual bool isGoalAchieved(const UserProfile& profile) const = 0;
 	const std::string& typeToString(const GoalType& type) {
 		switch (type) {
 		case GoalType::WEIGHT_LOSS: return "weight_loss";
@@ -28,5 +28,6 @@ public:
 	}
 	virtual GoalType getType() const = 0;
 	virtual std::unique_ptr<FitnessGoal> clone() const = 0;
+	virtual std::string getProgress(const UserProfile& profile) const = 0;
 };
 

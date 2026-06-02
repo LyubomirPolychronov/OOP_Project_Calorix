@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 enum class MUSCLE_GROUP {
@@ -25,6 +26,9 @@ public:
 	int getId() const;
 	const std::string& getName() const;
 	double getCaloriesBurned() const;
-	std::string getMuscleGroup() const;
+	const std::string& getMuscleGroup() const;
+	void printExercise() const {
+		std::cout << "Exercise: " << name << " | burned calories: " << std::to_string(caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
+	}
 };
 

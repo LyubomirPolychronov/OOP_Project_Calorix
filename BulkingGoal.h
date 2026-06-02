@@ -12,7 +12,7 @@ public:
 		calorieSurplus = (calories < BASE_SURPLUS) ? (BASE_SURPLUS) : (calories);
 	}
 	
-	bool isGoalAchieved(const UserProfile& profile) override {
+	bool isGoalAchieved(const UserProfile& profile) const override {
 		return isAchieved;
 	}
 	GoalType getType() const override {
@@ -21,6 +21,9 @@ public:
 
 	std::unique_ptr<FitnessGoal> clone() const override {
 		return std::make_unique<BulkingGoal>(*this);
+	}
+	std::string getProgress(const UserProfile& profile) const override {
+		return "Your current goal is Bulking. You need to maintain a daily calorie surplus of +" + std::to_string(calorieSurplus) + " kcal.\n";
 	}
 	double getCalorieSurplus() const {
 		return calorieSurplus;

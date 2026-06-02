@@ -20,7 +20,7 @@ double Exercise::getCaloriesBurned() const
 	return this->caloriesBurnedPerHour;
 }
 
-std::string Exercise::getMuscleGroup() const
+const std::string& Exercise::getMuscleGroup() const
 {
 	switch (this->muscleGroup) {
 	case MUSCLE_GROUP::CHEST: return "Chest";

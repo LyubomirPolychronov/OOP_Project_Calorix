@@ -14,18 +14,20 @@ public:
 		}
 		goalWeight = weight;
 	}
-	bool isGoalAchieved(const UserProfile& profile) override {
+	bool isGoalAchieved(const UserProfile& profile) const override {
 		if (profile.getWeight() <= goalWeight)
 		{
 			 isAchieved = true;
 		}
 		return isAchieved;
 	}
-
 	std::unique_ptr<FitnessGoal> clone() const override{
 		return std::make_unique<WeightLossGoal>(*this);
 	}
-
+	std::string getProgress(const UserProfile& profile) const override {
+		double kgDiff = abs(profile.getWeight() - goalWeight);
+		return (!isGoalAchieved(profile)) ? ("You have " + std::to_string(kgDiff) + " to goal weight\n") : ("You have reached your goal and you are even " + std::to_string(kgDiff) + "under your goal weight\n");
+	}
 	GoalType getType() const override {
 		return GoalType::WEIGHT_LOSS;
 	}
