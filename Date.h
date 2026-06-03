@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdexcept>
 namespace constDays {
 	const int LeapFeb = 29;
 	const int NonLeapFeb = 28;

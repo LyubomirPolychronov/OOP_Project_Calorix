@@ -27,8 +27,6 @@ public:
 	const std::string& getName() const;
 	double getCaloriesBurned() const;
 	const std::string& getMuscleGroup() const;
-	void printExercise() const {
-		std::cout << "Exercise: " << name << " | burned calories: " << std::to_string(caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
-	}
+	void printExercise() const;
 };
 

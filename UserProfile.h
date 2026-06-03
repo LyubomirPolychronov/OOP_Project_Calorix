@@ -31,5 +31,8 @@ public:
 	double getWeight() const;
 	const Gender& getGender() const;
 	const ActivityLevel& getActivityLevel() const;
+	std::string genderToString(const Gender& g) const;
+	static Gender stringToGender(const std::string& g);
+	static ActivityLevel stringToActivityLevel(const std::string& str);
 };
 

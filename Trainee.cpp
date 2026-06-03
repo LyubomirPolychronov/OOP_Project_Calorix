@@ -77,7 +77,7 @@ void Trainee::viewProgress() const
 
 void Trainee::calculateBMI() const
 {
-	double bmi = profile.getWeight() / (pow(profile.getHeight() / 100.0, 2));
+	double bmi = profile.getWeight() / ((profile.getHeight() / 100.0 * profile.getHeight() / 100.0));
 	std::cout << "Your Body Mass Index is: " << bmi << "\n";
 }
 

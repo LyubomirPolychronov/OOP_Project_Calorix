@@ -5,10 +5,14 @@
 #include <memory>
 
 #include "Calorix.h"
+#include "Admin.h"
 #include "CommandFactory.h"
 #include "EndCommand.h"
 #include "AddFoodCommand.h"
-#include "Admin.h"
+#include "LoginCommand.h"
+#include "LogOutCommand.h"
+#include "HelpCommand.h"
+#include "RegisterCommand.h"
 #include <iostream>
 
 int main()
@@ -16,6 +20,10 @@ int main()
 	CommandFactory factory;
 	factory.registerCommand("end", std::make_unique<EndCommand>());
 	factory.registerCommand("add-food", std::make_unique<AddFoodCommand>());
+	factory.registerCommand("login", std::make_unique<LoginCommand>());
+	factory.registerCommand("logout", std::make_unique<LogOutCommand>());
+	factory.registerCommand("register", std::make_unique<RegisterCommand>());
+	factory.registerCommand("help", std::make_unique<HelpCommand>());
 
 	UserProfile adminProfile(30, 80.0, 180.0, Gender::male, ActivityLevel::MODERATE);
 	Calorix::getInstance().getUserDB().push_back(std::make_unique<Admin>("admin", "admin123", adminProfile));

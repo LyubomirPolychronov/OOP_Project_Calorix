@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Calorix.h"
+
 class Command
 {
 public:

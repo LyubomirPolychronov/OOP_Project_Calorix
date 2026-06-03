@@ -8,25 +8,12 @@ class BulkingGoal : public FitnessGoal
 private:
 	double calorieSurplus;
 public:
-	BulkingGoal(const Date& start, const Date& end, double calories) : FitnessGoal(start, end) {
-		calorieSurplus = (calories < BASE_SURPLUS) ? (BASE_SURPLUS) : (calories);
-	}
-	
-	bool isGoalAchieved(const UserProfile& profile) const override {
-		return isAchieved;
-	}
-	GoalType getType() const override {
-		return GoalType::BULKING;
-	}
+	BulkingGoal(const Date& start, const Date& end, double calories);
+	bool isGoalAchieved(const UserProfile& profile) const override;
+	GoalType getType() const override;
 
-	std::unique_ptr<FitnessGoal> clone() const override {
-		return std::make_unique<BulkingGoal>(*this);
-	}
-	std::string getProgress(const UserProfile& profile) const override {
-		return "Your current goal is Bulking. You need to maintain a daily calorie surplus of +" + std::to_string(calorieSurplus) + " kcal.\n";
-	}
-	double getCalorieSurplus() const {
-		return calorieSurplus;
-	}
+	std::unique_ptr<FitnessGoal> clone() const override;
+	std::string getProgress(const UserProfile& profile) const override;
+	double getCalorieSurplus() const;
 };
 

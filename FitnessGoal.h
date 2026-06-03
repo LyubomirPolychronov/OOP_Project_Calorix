@@ -15,17 +15,10 @@ protected:
 	Date deadline;
 	mutable bool isAchieved;
 public:
-	FitnessGoal(const Date& start, const Date& end):startDate(start), deadline(end), isAchieved(false){}
+	FitnessGoal(const Date& start, const Date& end);
 	virtual ~FitnessGoal() = default;
 	virtual bool isGoalAchieved(const UserProfile& profile) const = 0;
-	const std::string& typeToString(const GoalType& type) {
-		switch (type) {
-		case GoalType::WEIGHT_LOSS: return "weight_loss";
-		case GoalType::BULKING: return "bulking";
-		case GoalType::MAINTENANCE: return "maintenance";
-		default: throw std::invalid_argument("Unknown type");
-		}
-	}
+	std::string typeToString(const GoalType& type) const;
 	virtual GoalType getType() const = 0;
 	virtual std::unique_ptr<FitnessGoal> clone() const = 0;
 	virtual std::string getProgress(const UserProfile& profile) const = 0;

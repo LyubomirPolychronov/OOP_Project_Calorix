@@ -33,3 +33,8 @@ const std::string& Exercise::getMuscleGroup() const
 	default: return "Unknown";
 	}
 }
+
+void Exercise::printExercise() const
+{
+	std::cout << "Exercise: " << name << " | burned calories: " << std::to_string(caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
+}

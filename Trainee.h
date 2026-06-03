@@ -15,31 +15,19 @@ private:
 
 public:
 	Trainee(const std::string& name, const std::string& pass, const UserProfile& profile); 
-
+	
 	void login(const std::string& username, const std::string& password) override;
-	
 	void logout() override;
-	
 	void help() const override;
-
 	void setGoal(const std::string& type, const Date& start, const Date& end, double targetValue);
-	
 	void logFood(const Food& food, double quantityGrams, const Date& date);
-		
 	void logExercise(const Exercise& e, int duration, const Date& date);
-	
 	void viewDailySummary() const;
-
 	void viewProgress() const;
-		
 	void calculateBMI() const; 
-	
 	double calculateBMR() const;
-	
 	std::vector<const Exercise*> generateWorkoutPlan(int duration, const std::vector<Exercise>& allExercises) const;
-	
 	void addToFavourites(const Exercise* exercise);
-	
 	void viewFavourites() const;
 };
 

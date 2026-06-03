@@ -14,18 +14,15 @@ private:
 	~Calorix() = default;
 
 public:
-	static Calorix& getInstance() {
-		static Calorix calorix;
-		return calorix;
-	}
+	static Calorix& getInstance();
 	Calorix(const Calorix& other) = delete;
 	Calorix& operator=(const Calorix& other) = delete;
 	
-	User* getCurrentUser() const { return currentUser; }
-	void setCurrentUser(User* user) { currentUser = user; }
+	User* getCurrentUser() const;
+	void setCurrentUser(User* user);
 
-	std::vector<std::unique_ptr<User>>& getUserDB() { return userDB; }
-	std::vector<Food>& getFoodDB() { return foodDB; }
-	std::vector<Exercise>& getExerciseDB() { return exerciseDB; }
+	std::vector<std::unique_ptr<User>>& getUserDB();
+	std::vector<Food>& getFoodDB();
+	std::vector<Exercise>& getExerciseDB();
 };
 

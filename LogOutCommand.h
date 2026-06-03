@@ -1,8 +1,6 @@
 #pragma once
 #include "Command.h"
-#include "Admin.h"
-
-class AddFoodCommand : public Command
+class LogOutCommand : public Command
 {
 public:
 	void execute(const std::vector<std::string>& args) override;
