@@ -38,3 +38,29 @@ void Exercise::printExercise() const
 {
 	std::cout << "Exercise: " << name << " | burned calories: " << std::to_string(caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
 }
+
+MUSCLE_GROUP Exercise::stringToMuscleGroup(const std::string& str)
+{
+	if (str == "CHEST" || str == "chest") return MUSCLE_GROUP::CHEST;
+	if (str == "BACK" || str == "back") return MUSCLE_GROUP::BACK;
+	if (str == "LEGS" || str == "legs") return MUSCLE_GROUP::LEGS;
+	if (str == "SHOULDERS" || str == "shoulders") return MUSCLE_GROUP::SHOULDERS;
+	if (str == "ARMS" || str == "arms") return MUSCLE_GROUP::ARMS;
+	if (str == "CORE" || str == "core") return MUSCLE_GROUP::CORE;
+	if (str == "CARDIO" || str == "cardio") return MUSCLE_GROUP::CARDIO;
+	throw std::invalid_argument("Muscle group is not found");
+}
+
+std::string Exercise::muscleGroupToString() const
+{
+	switch (muscleGroup) {
+	case MUSCLE_GROUP::CHEST: return "Chest";
+	case MUSCLE_GROUP::BACK: return "Back";
+	case MUSCLE_GROUP::LEGS: return "Legs";
+	case MUSCLE_GROUP::SHOULDERS: return "Shoulders";
+	case MUSCLE_GROUP::ARMS: return "Arms";
+	case MUSCLE_GROUP::CORE: return "Core";
+	case MUSCLE_GROUP::CARDIO: return "Cardio";
+	default: throw std::invalid_argument("Unknown muscle");
+	}
+}

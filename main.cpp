@@ -13,10 +13,18 @@
 #include "LogOutCommand.h"
 #include "HelpCommand.h"
 #include "RegisterCommand.h"
+#include "LogFoodCommand.h"
+#include "ViewDailySummaryCommand.h"
+#include "DataManager.h"
+#include "BlockUserCommand.h"
+#include "AddExerciseCommand.h"
+#include "UpdateFoodCommand.h"
 #include <iostream>
 
 int main()
 {
+	DataManager::loadData();
+
 	CommandFactory factory;
 	factory.registerCommand("end", std::make_unique<EndCommand>());
 	factory.registerCommand("add-food", std::make_unique<AddFoodCommand>());
@@ -24,14 +32,20 @@ int main()
 	factory.registerCommand("logout", std::make_unique<LogOutCommand>());
 	factory.registerCommand("register", std::make_unique<RegisterCommand>());
 	factory.registerCommand("help", std::make_unique<HelpCommand>());
-
-	UserProfile adminProfile(30, 80.0, 180.0, Gender::male, ActivityLevel::MODERATE);
-	Calorix::getInstance().getUserDB().push_back(std::make_unique<Admin>("admin", "admin123", adminProfile));
-	Calorix::getInstance().setCurrentUser(Calorix::getInstance().getUserDB().back().get());
-
+	factory.registerCommand("log-food", std::make_unique<LogFoodCommand>());
+	factory.registerCommand("view-summary", std::make_unique<ViewDailySummaryCommand>());
+	factory.registerCommand("block-user", std::make_unique<BlockUserCommand>());
+	factory.registerCommand("add-exercise", std::make_unique<AddExerciseCommand>());
+	factory.registerCommand("update-food", std::make_unique<UpdateFoodCommand>());
+	if (Calorix::getInstance().getUserDB().empty()) {
+		UserProfile adminProfile(30, 80.0, 180.0, Gender::male, ActivityLevel::MODERATE);
+		Calorix::getInstance().getUserDB().push_back(std::make_unique<Admin>("admin", "admin123", adminProfile));
+	}
 	std::cout << "--- Welcome to Calorix system (Logged in as admin) ---\n";
 	std::cout << "Enter command: \n";
-
+	if (!Calorix::getInstance().getUserDB().empty()) {
+		Calorix::getInstance().setCurrentUser(Calorix::getInstance().getUserDB().front().get());
+	}
 	
 	std::string line;
 	while (std::getline(std::cin, line)) {

@@ -13,10 +13,6 @@ User* Calorix::getCurrentUser() const
 
 void Calorix::setCurrentUser(User* user)
 {
-	if (!user)
-	{
-		throw std::invalid_argument("Invalid User");
-	}
 	currentUser = user;
 }
 

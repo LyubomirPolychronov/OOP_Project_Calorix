@@ -1,5 +1,6 @@
 #include "Admin.h"
-
+#include "Calorix.h"
+#include <algorithm>
 Admin::Admin(const std::string& name, const std::string& pass, const UserProfile& profile) : User(name,pass,profile)
 {
 }
@@ -21,6 +22,21 @@ void Admin::help() const
 		<< "3. add-exercise <name> <calories_burned_per_hour> <muscle-group>\n"
 		<< "4. update-food <food-name> <new-calories>\n"
 		<< "----------------------------------\n";
+}
+
+void Admin::blockUser(const std::string& userName)
+{
+	auto& users = Calorix::getInstance().getUserDB();
+	
+	auto it = std::remove_if(users.begin(), users.end(), [&userName](const std::unique_ptr<User>& user) {return user->getUsername() == userName; });
+	if (it != users.end())
+	{
+		users.erase(it, users.end()); 
+		std::cout << "User " << userName << " has been successfully blocked and removed.\n";
+		std::cout << "Changes will be permanently saved to the file upon typing 'end'.\n";
+		return;
+	}
+	throw std::invalid_argument("User with username " + userName + " not found");
 }
 
 Food Admin::addFood(const std::string& name, double caloriesPer100, double protein, double carbs, double fat)

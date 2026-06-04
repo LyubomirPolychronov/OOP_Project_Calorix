@@ -46,4 +46,3 @@ void Food::setCalories(double newCals)
 	caloriesPer100g = newCals;
 }
 
-

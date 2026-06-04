@@ -1,0 +1,33 @@
+#include "LogFoodCommand.h"
+
+void LogFoodCommand::execute(const std::vector<std::string>& args)
+{
+	User* current = Calorix::getInstance().getCurrentUser();
+	if (!current)
+	{
+		throw std::invalid_argument("You must be logged in to perform this action");
+	}
+	Trainee* trainee = dynamic_cast<Trainee*>(current);
+	if (!trainee)
+	{
+		throw std::invalid_argument("Only trainees can logfood");
+	}
+	if (args.size() < 5)
+	{
+		throw std::invalid_argument("Usage: log-food <Food> <quantity> <Date(day,month,year)> ");
+	}
+	std::string foodName = args[0];
+	double quantity = stod(args[1]);
+	int day = stoi(args[2]);
+	int month = stoi(args[3]);
+	int year = stoi(args[4]);
+	Date date(day, month, year);
+	for (const auto& food : Calorix::getInstance().getFoodDB()) {
+		if (food.getName() == foodName)
+		{
+			trainee->logFood(food, quantity, date);
+			return;
+		}
+	}
+	throw std::invalid_argument("Food not found in DataBase");
+}

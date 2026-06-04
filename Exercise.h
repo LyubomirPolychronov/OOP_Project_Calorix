@@ -28,5 +28,7 @@ public:
 	double getCaloriesBurned() const;
 	const std::string& getMuscleGroup() const;
 	void printExercise() const;
+	static MUSCLE_GROUP stringToMuscleGroup(const std::string& str);
+	std::string muscleGroupToString() const;
 };
 

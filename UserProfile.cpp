@@ -20,12 +20,24 @@ const Gender& UserProfile::getGender() const
     return gender;
 }
 
-std::string UserProfile::genderToString(const Gender& g) const
+std::string UserProfile::genderToString() const
 {
-    switch (g) {
+    switch (gender) {
     case Gender::male: return "male";
     case Gender::female: return "female";
     default: throw std::invalid_argument("Invalid gender! Choose 'male' or 'female'");
+    }
+}
+
+std::string UserProfile::activityLevelToString() const
+{
+    switch (al) {
+    case ActivityLevel::SEDENTARY: return "SEDENTARY";
+    case ActivityLevel::LIGHT: return "LIGHT";
+    case ActivityLevel::MODERATE: return "MODERATE";
+    case ActivityLevel::ACTIVE: return "ACTIVE";
+    case ActivityLevel::VERY_ACTIVE: return "VERY_ACTIVE";
+    default: throw std::invalid_argument("Unknown activity level");
     }
 }
 

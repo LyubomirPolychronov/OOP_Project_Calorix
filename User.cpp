@@ -22,3 +22,8 @@ int User::getId() const
 	return this->id;
 }
 
+const UserProfile& User::getProfile() const
+{
+	return profile;
+}
+

@@ -1,0 +1,4 @@
+Admin admin password_mask 30 80 180 male MODERATE
+Admin admin password_mask 30 80 180 male MODERATE
+Trainee B password_mask 13 60 170 male LIGHT
+Admin admin password_mask 30 80 180 male MODERATE
