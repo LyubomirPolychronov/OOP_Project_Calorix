@@ -19,22 +19,30 @@
 #include "BlockUserCommand.h"
 #include "AddExerciseCommand.h"
 #include "UpdateFoodCommand.h"
-#include <iostream>
-
+#include "LogExerciseCommand.h"
+#include "ViewProgressCommand.h"
+#include "CalculateBMICommand.h"
+#include "AddToFavouritesCommand.h"
+#include "ViewFavouritesCommand.h"
 int main()
 {
 	DataManager::loadData();
 
 	CommandFactory factory;
 	factory.registerCommand("end", std::make_unique<EndCommand>());
-	factory.registerCommand("add-food", std::make_unique<AddFoodCommand>());
+	factory.registerCommand("register", std::make_unique<RegisterCommand>());
 	factory.registerCommand("login", std::make_unique<LoginCommand>());
 	factory.registerCommand("logout", std::make_unique<LogOutCommand>());
-	factory.registerCommand("register", std::make_unique<RegisterCommand>());
 	factory.registerCommand("help", std::make_unique<HelpCommand>());
 	factory.registerCommand("log-food", std::make_unique<LogFoodCommand>());
 	factory.registerCommand("view-summary", std::make_unique<ViewDailySummaryCommand>());
+	factory.registerCommand("log-exercise", std::make_unique<LogExerciseCommand>());
+	factory.registerCommand("view-progress", std::make_unique<ViewProgressCommand>());
+	factory.registerCommand("calculate-bmi", std::make_unique<CalculateBMICommand>());
+	factory.registerCommand("add-to-favorites", std::make_unique<AddToFavouritesCommand>());
+	factory.registerCommand("view-favorites", std::make_unique<ViewFavouritesCommand>());
 	factory.registerCommand("block-user", std::make_unique<BlockUserCommand>());
+	factory.registerCommand("add-food", std::make_unique<AddFoodCommand>());
 	factory.registerCommand("add-exercise", std::make_unique<AddExerciseCommand>());
 	factory.registerCommand("update-food", std::make_unique<UpdateFoodCommand>());
 	if (Calorix::getInstance().getUserDB().empty()) {
@@ -43,8 +51,10 @@ int main()
 	}
 	std::cout << "--- Welcome to Calorix system (Logged in as admin) ---\n";
 	std::cout << "Enter command: \n";
-	if (!Calorix::getInstance().getUserDB().empty()) {
-		Calorix::getInstance().setCurrentUser(Calorix::getInstance().getUserDB().front().get());
+	User* adminPtr = Calorix::getInstance().getUserDB().front().get();
+	if (adminPtr)
+	{
+		Calorix::getInstance().setCurrentUser(adminPtr);
 	}
 	
 	std::string line;
@@ -53,12 +63,12 @@ int main()
 
 		std::stringstream ss(line);
 		std::string commandName;
-		ss >> commandName; 
+		ss >> commandName;
 
 		std::vector<std::string> args;
 		std::string arg;
 		while (ss >> arg) {
-			args.push_back(arg); 
+			args.push_back(arg);
 		}
 
 		try {
@@ -67,10 +77,12 @@ int main()
 		catch (const std::invalid_argument& e){
 			std::cout << "Error: " << e.what() << "\n";
 		}
-		catch (const std::exception& e) {
+		catch (const std::runtime_error& e) {
 			std::cout << "Error: " << e.what() << "\n";
 		}
-
+		catch (...) {
+			std::cout << "Error!!!\n";
+		}
 		std::cout << "\nEnter command: \n";
 	}
 

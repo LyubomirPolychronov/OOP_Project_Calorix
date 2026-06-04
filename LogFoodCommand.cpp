@@ -10,7 +10,7 @@ void LogFoodCommand::execute(const std::vector<std::string>& args)
 	Trainee* trainee = dynamic_cast<Trainee*>(current);
 	if (!trainee)
 	{
-		throw std::invalid_argument("Only trainees can logfood");
+		throw std::invalid_argument("Only trainees can log-food");
 	}
 	if (args.size() < 5)
 	{
@@ -26,6 +26,7 @@ void LogFoodCommand::execute(const std::vector<std::string>& args)
 		if (food.getName() == foodName)
 		{
 			trainee->logFood(food, quantity, date);
+			std::cout << "Food " + foodName + " has succussfully been logged\n";
 			return;
 		}
 	}

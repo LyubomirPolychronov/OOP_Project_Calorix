@@ -20,3 +20,4 @@ double ExerciseEntry::calculateBurnedCalories() const
 {
 	return (durationInMinutes / 60.0) * (exercise.getCaloriesBurned());
 }
+

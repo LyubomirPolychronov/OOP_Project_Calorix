@@ -24,6 +24,7 @@ public:
 	 bool checkLogin(const std::string& username, const std::string& password) const;
 	 const std::string& getUsername() const;
 	 int getId() const;
+	 const std::string& getPassword() const;
 	 const UserProfile& getProfile() const;
 
 };

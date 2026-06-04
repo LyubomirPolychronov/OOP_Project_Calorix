@@ -22,7 +22,7 @@ void DataManager::saveData()
 			outUsers << "Trainee" << " ";
 		}
 
-		outUsers << user->getUsername() << " password_mask " << user->getProfile().getAge() << " "
+		outUsers << user->getUsername() << " " << user->getPassword() << " " << user->getProfile().getAge() << " "
 			     << user->getProfile().getWeight() << " " << user->getProfile().getHeight() << " " << user->getProfile().genderToString() << " " 
 			     << user->getProfile().activityLevelToString() << "\n";
 	}
@@ -34,9 +34,7 @@ void DataManager::saveData()
 void DataManager::loadData()
 {
 	std::ifstream inFoods("foods.txt");
-	std::ifstream inUsers("users.txt");
-	std::ifstream inExercises("exercises.txt");
-	if (inFoods) {
+	if (inFoods.is_open()) {
 		std::string fName;
 		double cals, prot, carbs, fats;
 		while (inFoods >> fName >> cals >> prot >> carbs >> fats)
@@ -44,8 +42,10 @@ void DataManager::loadData()
 			Food loadedFood(fName, cals, prot, carbs, fats);
 			Calorix::getInstance().getFoodDB().push_back(loadedFood);
 		}
+		inFoods.close();
 	}
-	if (inUsers) {
+	std::ifstream inUsers("users.txt");
+	if (inUsers.is_open()) {
 		std::string type, uName, uPass, genderStr, activityStr;
 		int age;
 		double weight, height;
@@ -63,14 +63,24 @@ void DataManager::loadData()
 				Calorix::getInstance().getUserDB().push_back(std::make_unique<Trainee>(uName, uPass, up));
 			}
 		}
+		inUsers.close();
 	}
-	if (inExercises) {
+	std::ifstream inExercises("exercises.txt");
+	if (inExercises.is_open()) {
 		std::string eName, muscleStr;
 		double caloriesBurned;
 		while (inExercises >> eName >> caloriesBurned >> muscleStr) {
-			MUSCLE_GROUP muscle = Exercise::stringToMuscleGroup(muscleStr);
-			Calorix::getInstance().getExerciseDB().push_back(Exercise(eName, caloriesBurned, muscle));
+			try
+			{
+				MUSCLE_GROUP muscle = Exercise::stringToMuscleGroup(muscleStr);
+				Calorix::getInstance().getExerciseDB().push_back(Exercise(eName, caloriesBurned, muscle));
+			}
+			catch (const std::invalid_argument& e)
+			{
+				std::cout << "Error " << e.what() << "\n";
+			}
 		}
+		inExercises.close();
 	}
 }
 

@@ -22,6 +22,11 @@ int User::getId() const
 	return this->id;
 }
 
+const std::string& User::getPassword() const
+{
+	return password;
+}
+
 const UserProfile& User::getProfile() const
 {
 	return profile;

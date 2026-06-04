@@ -21,7 +21,7 @@ public:
 	void help() const override;
 	void setGoal(const std::string& type, const Date& start, const Date& end, double targetValue);
 	void logFood(const Food& food, double quantityGrams, const Date& date);
-	void logExercise(const Exercise& e, int duration, const Date& date);
+	void logExercise(const Exercise& e, int duration,const Date& date);
 	void viewDailySummary() const;
 	void viewProgress() const;
 	void calculateBMI() const; 

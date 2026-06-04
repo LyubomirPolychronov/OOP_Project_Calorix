@@ -19,8 +19,8 @@ void Trainee::help() const
 	std::cout << "--- Trainee Available Commands ---\n"
 		<< "1. set-goals <goal-type> <target-value> <deadline>\n"
 		<< "2. log-food <food-name> <quantity_grams>\n"
-		<< "3. log-exercise <exercise-name> <duration_minutes>\n"
-		<< "4. view-daily-summary\n"
+		<< "3. log-exercise <exercise-name> <duration_minutes> <day> <month> <year>\n"
+		<< "4. view-summary\n"
 		<< "5. view-progress\n"
 		<< "6. calculate-bmi\n"
 		<< "7. calculate-bmr\n"
@@ -42,9 +42,9 @@ void Trainee::logFood(const Food& food, double quantityGrams, const Date& date)
 	std::cout << "You have successfully logged " << quantityGrams << "g of " << food.getName() << " to your Diary\n";
 }
 
-void Trainee::logExercise(const Exercise& e, int duration, const Date& date)
+void Trainee::logExercise(const Exercise& e, int duration,const Date& date)
 {
-	exerciseDiary.push_back(ExerciseEntry(e, duration, date));
+	exerciseDiary.push_back(ExerciseEntry(e, duration,date));
 	std::cout << "You have successfully logged " << e.getName() << " to your Diary, which trains predominantly " << e.getMuscleGroup() << "\n";
 }
 
@@ -91,6 +91,10 @@ double Trainee::calculateBMR() const
 
 std::vector<const Exercise*> Trainee::generateWorkoutPlan(int duration, const std::vector<Exercise>& allExercises) const
 {
+	if (duration < 0)
+	{
+		throw std::invalid_argument("Duration should be a positive number");
+	}
 	std::vector<const Exercise*> pool;
 	for (const auto& ex : allExercises) {
 		pool.push_back(&ex);
