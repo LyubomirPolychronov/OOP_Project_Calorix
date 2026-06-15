@@ -26,7 +26,7 @@ public:
 	int getId() const;
 	const std::string& getName() const;
 	double getCaloriesBurned() const;
-	const std::string& getMuscleGroup() const;
+	std::string getMuscleGroup() const;
 	void printExercise() const;
 	static MUSCLE_GROUP stringToMuscleGroup(const std::string& str);
 	std::string muscleGroupToString() const;

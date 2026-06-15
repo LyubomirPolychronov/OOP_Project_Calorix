@@ -3,15 +3,14 @@ using namespace constDays;
 
 bool Date::isLeapYear(int year) const
 {
-    return (year % 4 == 0) && (year % 400 == 0 || year % 100 != 0);
+	return (year % 4 == 0) && ((year % 100 != 0 || year % 400 == 0));
 }
 
 int Date::getMaxDaysForMonth(int m, int y) const
 {
 	if (m < 1 || m > 12)
 	{
-		return 0;
-		//throw
+		throw std::invalid_argument("Invalid month");
 	}
 	if (m == 2)
 	{
@@ -65,4 +64,26 @@ int Date::getMonth() const
 int Date::getYear() const
 {
 	return this->year;
+}
+
+void Date::printDate() const
+{
+	std::cout << day << "/" << month << "/" << year << "\n";
+}
+
+Date Date::stringToDate(const std::vector<std::string>& args)
+{
+	if (args.size() < 3)
+	{
+		throw std::invalid_argument("Not enough arguments to construct a Date");
+	}
+	int day = std::stoi(args[0]);
+	int month = std::stoi(args[1]);
+	int year = std::stoi(args[2]);
+	return Date(day, month, year);
+}
+
+bool operator==(const Date& lhs, const Date& rhs)
+{
+	return lhs.day == rhs.day && lhs.month == rhs.month && lhs.year == rhs.year;
 }

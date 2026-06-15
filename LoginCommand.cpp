@@ -4,11 +4,11 @@ void LoginCommand::execute(const std::vector<std::string>& args)
 {
 	if (args.size() < 2)
 	{
-		throw std::invalid_argument("Usage: login <username> <password>");
+		throw InvalidCommand("Usage: login <username> <password>");
 	}
 	if (Calorix::getInstance().getCurrentUser() != nullptr)
 	{
-		throw std::invalid_argument("User already logged in");
+		throw InvalidCommand("User already logged in");
 	}
 	std::string username = args[0];
 	std::string password = args[1];
@@ -20,5 +20,5 @@ void LoginCommand::execute(const std::vector<std::string>& args)
 			return;
 		}
 	}
-	throw std::invalid_argument("Username or password is incorrect");
+	throw InvalidCommand("Username or password is incorrect");
 }

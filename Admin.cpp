@@ -57,10 +57,8 @@ void Admin::updateFood(const std::string& name, double newCalories, std::vector<
 		if (name == food.getName())
 		{
 			food.setCalories(newCalories);
-			std::cout << "Food updated successfully\n";
 			return;
 		}
 	}
-	std::cout << "Food was not found. Do you want to add new food.\n";
-
+	throw std::invalid_argument("Food was not found in data base");
 }

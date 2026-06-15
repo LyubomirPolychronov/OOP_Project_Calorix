@@ -15,5 +15,6 @@ public:
 	const Exercise& getExercise() const;
 	int getDuration() const;
 	double calculateBurnedCalories() const;
+	Date getDateD() const;
 };
 

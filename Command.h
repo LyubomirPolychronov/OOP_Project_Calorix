@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include "Calorix.h"
+#include "InvalidCommand.h"
+#include "Date.h"
 class Command
 {
 public:

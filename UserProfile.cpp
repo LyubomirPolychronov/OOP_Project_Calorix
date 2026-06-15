@@ -1,36 +1,30 @@
 #include "UserProfile.h"
 
-int UserProfile::getAge() const
-{
+int UserProfile::getAge() const {
     return age;
 }
 
-double UserProfile::getHeight() const
-{
+double UserProfile::getHeight() const {
     return height;
 }
 
-double UserProfile::getWeight() const
-{
+double UserProfile::getWeight() const {
     return weight;
 }
 
-const Gender& UserProfile::getGender() const
-{
+const Gender& UserProfile::getGender() const {
     return gender;
 }
 
-std::string UserProfile::genderToString() const
-{
+std::string UserProfile::genderToString() const {
     switch (gender) {
     case Gender::male: return "male";
     case Gender::female: return "female";
-    default: throw std::invalid_argument("Invalid gender! Choose 'male' or 'female'");
+    default: throw std::invalid_argument("Invalid gender!");
     }
 }
 
-std::string UserProfile::activityLevelToString() const
-{
+std::string UserProfile::activityLevelToString() const {
     switch (al) {
     case ActivityLevel::SEDENTARY: return "SEDENTARY";
     case ActivityLevel::LIGHT: return "LIGHT";
@@ -41,13 +35,13 @@ std::string UserProfile::activityLevelToString() const
     }
 }
 
-Gender UserProfile::stringToGender(const std::string& g)
-{
-    return g == "male" ? Gender::male : Gender::female;
+Gender UserProfile::stringToGender(const std::string& g) {
+    if (g == "male" || g == "Male") return Gender::male;
+    if (g == "female" || g == "Female") return Gender::female;
+    throw std::invalid_argument("Invalid gender! Choose 'male' or 'female'.");
 }
 
-ActivityLevel UserProfile::stringToActivityLevel(const std::string& str)
-{
+ActivityLevel UserProfile::stringToActivityLevel(const std::string& str) {
     if (str == "SEDENTARY" || str == "sedentary") return ActivityLevel::SEDENTARY;
     if (str == "LIGHT" || str == "light") return ActivityLevel::LIGHT;
     if (str == "MODERATE" || str == "moderate") return ActivityLevel::MODERATE;
@@ -56,7 +50,6 @@ ActivityLevel UserProfile::stringToActivityLevel(const std::string& str)
     throw std::invalid_argument("Invalid activity level! Choose: sedentary, light, moderate, active, very_active.");
 }
 
-const ActivityLevel& UserProfile::getActivityLevel() const
-{
+const ActivityLevel& UserProfile::getActivityLevel() const {
     return al;
 }

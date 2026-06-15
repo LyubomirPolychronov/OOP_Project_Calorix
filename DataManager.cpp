@@ -21,10 +21,9 @@ void DataManager::saveData()
 		else {
 			outUsers << "Trainee" << " ";
 		}
-
 		outUsers << user->getUsername() << " " << user->getPassword() << " " << user->getProfile().getAge() << " "
-			     << user->getProfile().getWeight() << " " << user->getProfile().getHeight() << " " << user->getProfile().genderToString() << " " 
-			     << user->getProfile().activityLevelToString() << "\n";
+			<< user->getProfile().getWeight() << " " << user->getProfile().getHeight() << " " << user->getProfile().genderToString() 
+			 << " " << user->getProfile().activityLevelToString() << "\n";
 	}
 	for (const auto& exercise : Calorix::getInstance().getExerciseDB()) {
 		outExercises << exercise.getName() << " " << exercise.getCaloriesBurned() << " " << exercise.muscleGroupToString() << "\n";

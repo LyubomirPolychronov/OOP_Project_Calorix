@@ -4,17 +4,17 @@ void AddFoodCommand::execute(const std::vector<std::string>& args)
 {
 	if (args.size() < 5)
 	{
-		throw std::invalid_argument("Usage: add-food <name> <cals> <prot> <carbs> <fats>");
+		throw InvalidCommand("Usage: add-food <name> <cals> <prot> <carbs> <fats>");
 	}
 	User* current = Calorix::getInstance().getCurrentUser();
 	if (!current)
 	{
-		throw std::invalid_argument("You must be logged in to perform this action");
+		throw InvalidCommand("You must be logged in to perform this action");
 	}
 	Admin* admin = dynamic_cast<Admin*>(current);
 	if (!admin)
 	{
-		throw std::invalid_argument("Only admins can add food to the food database");
+		throw InvalidCommand("Only admins can add food to the food database");
 	}
 
 	std::string name = args[0];

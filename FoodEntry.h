@@ -15,5 +15,6 @@ public:
 	const Food& getFood() const;
 	double getQuantity() const;
 	const std::string getDate() const;
+	Date getDateD() const;
 };
 

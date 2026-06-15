@@ -1,5 +1,8 @@
 #pragma once
 #include <stdexcept>
+#include <iostream>
+#include <string>
+#include <vector>
 namespace constDays {
 	const int LeapFeb = 29;
 	const int NonLeapFeb = 28;
@@ -20,5 +23,8 @@ public:
 	 int getDay() const;
 	 int getMonth() const;
 	 int getYear() const;
+	 void printDate() const;
+	 static Date stringToDate(const std::vector<std::string>& args);
+	 friend bool operator==(const Date& lhs, const Date& rhs);
 };
 

@@ -4,7 +4,7 @@ void HelpCommand::execute(const std::vector<std::string>& args)
 {
 	if (!args.empty())
 	{
-		throw std::invalid_argument("Usage help. No arguments needed");
+		throw InvalidCommand("Usage help. No arguments needed");
 	}
 	User* user = Calorix::getInstance().getCurrentUser();
 	if (!user)

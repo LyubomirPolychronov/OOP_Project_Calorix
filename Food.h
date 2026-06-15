@@ -19,6 +19,7 @@ public:
 	double getFats() const;
 	double getCarbs() const;
 	void setCalories(double newCals);
+	static void setNextId(int id);
 };
 
    

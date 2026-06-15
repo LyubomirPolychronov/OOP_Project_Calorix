@@ -17,7 +17,7 @@ void Trainee::logout()
 void Trainee::help() const
 {
 	std::cout << "--- Trainee Available Commands ---\n"
-		<< "1. set-goals <goal-type> <target-value> <deadline>\n"
+		<< "1. set-goals <goal-type> <target-value> <start-date> <deadline>\n"
 		<< "2. log-food <food-name> <quantity_grams>\n"
 		<< "3. log-exercise <exercise-name> <duration_minutes> <day> <month> <year>\n"
 		<< "4. view-summary\n"
@@ -31,7 +31,7 @@ void Trainee::help() const
 		<< "----------------------------------\n";
 }
 
-void Trainee::setGoal(const std::string& type, const Date& start, const Date& end, double targetValue)
+void Trainee::setGoal(const std::string& type, double targetValue, const Date& start, const Date& end)
 {
 	currentGoal = GoalFactory::create(type, start, end, targetValue);
 }
@@ -51,15 +51,20 @@ void Trainee::logExercise(const Exercise& e, int duration,const Date& date)
 void Trainee::viewDailySummary() const
 {
 	double consumedCalories = 0, protein = 0, carbs = 0, fats = 0, burnedCals = 0;
+	Date today = Calorix::getInstance().getCurrentDate();
 	for (const auto& food : foodDiary) {
-		double multiplier = food.getQuantity() / 100.0;
-		consumedCalories += food.getFood().getCalories() * multiplier;
-		protein += food.getFood().getProtein() * multiplier;
-		carbs += food.getFood().getCarbs() * multiplier;
-		fats += food.getFood().getFats() * multiplier;
+		if (food.getDateD() == today) {
+			double multiplier = food.getQuantity() / 100.0;
+			consumedCalories += food.getFood().getCalories() * multiplier;
+			protein += food.getFood().getProtein() * multiplier;
+			carbs += food.getFood().getCarbs() * multiplier;
+			fats += food.getFood().getFats() * multiplier;
+		}
 	}
 	for (const auto& exercise : exerciseDiary) {
-		burnedCals += exercise.calculateBurnedCalories();
+		if (exercise.getDateD() == today) {
+			burnedCals += exercise.calculateBurnedCalories();
+		}
 	}
 	std::cout << "Your daily activity has burned " << burnedCals << " calories.\n";
 	std::cout << "You have consumed " << consumedCalories << " calories with: " << protein << " g of protein| " << carbs << " g of carbs| " << fats << " g of fats.\n";
@@ -86,6 +91,7 @@ double Trainee::calculateBMR() const
 	double bmr = 10 * profile.getWeight() + 6.25 * profile.getHeight() - 5.0 * profile.getAge();
 	if (profile.getGender() == Gender::male) { bmr += 5.0; }
 	else { bmr -= 161.0; }
+	std::cout << "Your Basal Metabolic Rate is: " << bmr << " kcal/day\n";
 	return bmr;
 }
 
@@ -106,7 +112,9 @@ std::vector<const Exercise*> Trainee::generateWorkoutPlan(int duration, const st
 	}
 	std::sort(pool.begin(), pool.end(), [](const Exercise* lhs, const Exercise* rhs) {return lhs->getCaloriesBurned() > rhs->getCaloriesBurned(); });
 	std::vector<const Exercise*> workoutPlan;
+	std::vector<int> exerciseDurations;
 	int currentDuration = 0;
+	double totalCalsBurned = 0;
 	for (const auto& exercise : pool) {
 		int durationsForExercise = 15;
 		if (currentDuration + durationsForExercise > duration)
@@ -116,6 +124,9 @@ std::vector<const Exercise*> Trainee::generateWorkoutPlan(int duration, const st
 		if (durationsForExercise > 0)
 		{
 			workoutPlan.push_back(exercise);
+			exerciseDurations.push_back(durationsForExercise);
+
+			totalCalsBurned += (exercise->getCaloriesBurned() / 60.0) * durationsForExercise;
 			currentDuration += durationsForExercise;
 		}
 		if (currentDuration >= duration)
@@ -123,24 +134,39 @@ std::vector<const Exercise*> Trainee::generateWorkoutPlan(int duration, const st
 			break;
 		}
 	}
+	std::cout << "Your workout plan is:\n";
+	for (size_t i = 0; i < workoutPlan.size(); ++i)
+	{
+		std::cout << i + 1 << ". " << workoutPlan[i]->getName()
+			<< " -> Duration: " << exerciseDurations[i] << " mins "
+			<< "(Trains: " << workoutPlan[i]->getMuscleGroup() << ")\n";
+	}
 	return workoutPlan;
 }
 
-void Trainee::addToFavourites(const Exercise* exercise)
+void Trainee::addToFavourites(const std::string& exerciseName)
 {
-	if (!exercise)
+	Exercise* exercisePtr = nullptr;
+	for (auto& exercise : Calorix::getInstance().getExerciseDB()) {
+		if (exercise.getName() == exerciseName)
+		{
+			exercisePtr = &exercise;
+			break;
+		}
+	}
+	if (exercisePtr == nullptr)
 	{
-		return;
+		throw std::invalid_argument("Exercise not found in Database");
 	}
 	for (const auto& fav : favoriteExercises) {
-		if (exercise->getId() == fav->getId())
+		if (exercisePtr->getId() == fav->getId())
 		{
 			std::cout << "This exercise is already in favourites\n";
 			return;
 		}
 	}
-	favoriteExercises.push_back(exercise);
-	std::cout << "Exercise " << exercise->getName() << " has been added to favourites\n";
+	favoriteExercises.push_back(exercisePtr);
+	std::cout << "Exercise " << exercisePtr->getName() << " has been added to favourites\n";
 }
 
 void Trainee::viewFavourites() const

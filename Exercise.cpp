@@ -20,7 +20,7 @@ double Exercise::getCaloriesBurned() const
 	return this->caloriesBurnedPerHour;
 }
 
-const std::string& Exercise::getMuscleGroup() const
+std::string Exercise::getMuscleGroup() const
 {
 	switch (this->muscleGroup) {
 	case MUSCLE_GROUP::CHEST: return "Chest";
@@ -36,7 +36,7 @@ const std::string& Exercise::getMuscleGroup() const
 
 void Exercise::printExercise() const
 {
-	std::cout << "Exercise: " << name << " | burned calories: " << std::to_string(caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
+	std::cout << "Exercise: " << name << " | burned calories: " << (caloriesBurnedPerHour) << " | main muscle group: " << getMuscleGroup() << "\n";
 }
 
 MUSCLE_GROUP Exercise::stringToMuscleGroup(const std::string& str)
@@ -54,13 +54,13 @@ MUSCLE_GROUP Exercise::stringToMuscleGroup(const std::string& str)
 std::string Exercise::muscleGroupToString() const
 {
 	switch (muscleGroup) {
-	case MUSCLE_GROUP::CHEST: return "Chest";
-	case MUSCLE_GROUP::BACK: return "Back";
-	case MUSCLE_GROUP::LEGS: return "Legs";
-	case MUSCLE_GROUP::SHOULDERS: return "Shoulders";
-	case MUSCLE_GROUP::ARMS: return "Arms";
-	case MUSCLE_GROUP::CORE: return "Core";
-	case MUSCLE_GROUP::CARDIO: return "Cardio";
+	case MUSCLE_GROUP::CHEST: return "CHEST";
+	case MUSCLE_GROUP::BACK: return "BACK";
+	case MUSCLE_GROUP::LEGS: return "LEGS";
+	case MUSCLE_GROUP::SHOULDERS: return "SHOULDERS";
+	case MUSCLE_GROUP::ARMS: return "ARMS";
+	case MUSCLE_GROUP::CORE: return "CORE";
+	case MUSCLE_GROUP::CARDIO: return "CARDIO";
 	default: throw std::invalid_argument("Unknown muscle");
 	}
 }

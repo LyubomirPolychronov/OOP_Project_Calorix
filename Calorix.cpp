@@ -16,6 +16,16 @@ void Calorix::setCurrentUser(User* user)
 	currentUser = user;
 }
 
+Date Calorix::getCurrentDate() const
+{
+	return currentDate;
+}
+
+void Calorix::setCurrentDate(const Date& d)
+{
+	currentDate = d;
+}
+
 std::vector<std::unique_ptr<User>>& Calorix::getUserDB()
 {
 	return userDB;

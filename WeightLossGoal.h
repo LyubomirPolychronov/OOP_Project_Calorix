@@ -1,5 +1,8 @@
 #pragma once
 #include "FitnessGoal.h"
+#include <cmath>
+#include <iomanip>
+#include <sstream>
 static const double MIN_WEIGHT = 40;
 class WeightLossGoal : public FitnessGoal
 {

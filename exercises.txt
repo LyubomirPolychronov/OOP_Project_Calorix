@@ -1,0 +1,6 @@
+Bench_Press 180 CHEST
+Pull_Ups 200 BACK
+Running 300 CARDIO
+Squats 210 LEGS
+Pec_Deck 70 CHEST
+Cycling 450 CARDIO

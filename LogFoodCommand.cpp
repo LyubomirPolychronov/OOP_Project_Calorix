@@ -5,16 +5,16 @@ void LogFoodCommand::execute(const std::vector<std::string>& args)
 	User* current = Calorix::getInstance().getCurrentUser();
 	if (!current)
 	{
-		throw std::invalid_argument("You must be logged in to perform this action");
+		throw InvalidCommand("You must be logged in to perform this action");
 	}
 	Trainee* trainee = dynamic_cast<Trainee*>(current);
 	if (!trainee)
 	{
-		throw std::invalid_argument("Only trainees can log-food");
+		throw InvalidCommand("Only trainees can log-food");
 	}
 	if (args.size() < 5)
 	{
-		throw std::invalid_argument("Usage: log-food <Food> <quantity> <Date(day,month,year)> ");
+		throw InvalidCommand("Usage: log-food <Food> <quantity> <Date(day,month,year)> ");
 	}
 	std::string foodName = args[0];
 	double quantity = stod(args[1]);
@@ -26,9 +26,9 @@ void LogFoodCommand::execute(const std::vector<std::string>& args)
 		if (food.getName() == foodName)
 		{
 			trainee->logFood(food, quantity, date);
-			std::cout << "Food " + foodName + " has succussfully been logged\n";
+			//std::cout << "Food " + foodName + " has succussfully been logged\n";
 			return;
 		}
 	}
-	throw std::invalid_argument("Food not found in DataBase");
+	throw InvalidCommand("Food not found in DataBase");
 }

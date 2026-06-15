@@ -14,6 +14,6 @@ void CommandFactory::executeCommand(const std::string& name, const std::vector<s
 	}
 	else
 	{
-		throw std::invalid_argument("Unknown command " + name);
+		throw InvalidCommand("Unknown command " + name);
 	}
 }
